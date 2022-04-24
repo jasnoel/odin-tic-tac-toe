@@ -3,10 +3,13 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size: 20px;
 }
 
 h1 {
-    font-size: 2.5rem;
+    background-color: #8e000044;
+    padding: 20px;
+    font-size: 2.2rem;
 }
 
 .game-board {
@@ -18,14 +21,21 @@ h1 {
 }
 
 .game-board .x {
+    background-color: #8e000044;
     display: flex;
     flex-grow: 1;
-    border: 1px solid blue;
+    border: 1px solid black;
 }
 
 .y {
     flex-grow: 1;
-    border: 1px solid blue;
+    border: 1px solid black;
+    width: 132px;
+    height: 132px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 40px;
 }
 
 .message {
@@ -42,4 +52,22 @@ h1 {
 
 .inactive {
     display: none;
+}
+
+.caption {
+    position: fixed;
+    left: 0;
+    top: 200px;
+}
+
+button {
+    padding: 5px 20px;
+    background-color: #8e000044;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin: 35px;
+}
+
+button:hover {
+    background-color: #8e000084
 }
