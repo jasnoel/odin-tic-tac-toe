@@ -1,11 +1,12 @@
 const gameBoard = (() => {
-    let board = [['', 'X', ''], ['', 'O', ''], ['X', '', '']];
+    let board = [['', '', ''], ['', '', ''], ['', '', '']];
 
     const getBoard = () => board;
 
     function placeTile(x, y, sign) {
         if (board[x][y] != 'X' && board[x][y] != 'O') {
             board[x][y] = sign;
+            return true;
         } else {
             return {msg: "Error: this tile is already assigned"};
         }
@@ -19,6 +20,32 @@ const gameBoard = (() => {
     }
 
     return {getBoard, placeTile, reset, display}
+})();
+
+const game = (() => {
+    let sign = 'X';
+
+    function switchSign() {
+        sign = sign == 'X' ? 'O' : 'X';
+    }
+    
+    function start() {
+
+    }
+
+    function placeTile(x, y) {
+        if (gameBoard.placeTile(x, y, sign) == true) {
+            switchSign();
+            UI.display();
+        }
+    }
+
+    function checkWin() {
+        //verfifcations
+        return {win: false, winner: ''}
+    }
+
+    return { placeTile }
 })();
 
 const UI = (() => {
@@ -36,12 +63,16 @@ const UI = (() => {
             tileY.classList.add('y');
             tileX.appendChild(tileY);
             boardX.push(tileY);
+
+            tileY.addEventListener('click', () => {
+                game.placeTile(x, y);
+            });
         }
         board.push(boardX);
     }
 
-    function display(grid) {
-        console.log(grid);
+    function display() {
+        let grid = gameBoard.getBoard();
         board.forEach((lign, x) => {
             lign.forEach((element, y) => {
                 element.textContent = grid[x][y];
@@ -52,4 +83,4 @@ const UI = (() => {
     return { display };
 })();
 
-UI.display(gameBoard.getBoard());
+UI.display();
