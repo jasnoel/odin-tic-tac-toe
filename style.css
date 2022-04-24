@@ -1,6 +1,8 @@
 * {
     text-align: center;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -29,4 +31,15 @@ h1 {
 .message {
     font-size: 1.5rem;
     margin: 80px;
+}
+
+.cache {
+    background-color: #4440;
+    position: absolute;
+    width: 400px;
+    height: 400px;
+}
+
+.inactive {
+    display: none;
 }
