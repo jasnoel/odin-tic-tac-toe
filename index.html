@@ -10,8 +10,19 @@
 </head>
 <body>
     <h1>Odin Tic Tac Toe</h1>
-    <div class="message">Welcome player X, please enter your username</div>
+    <div class="message"></div>
     <div class="actions">
+        <form action="#">
+            <div class="player1">
+                <label for="player1">X Player</label>
+                <input type="text" name="player1" placeholder="player 1 ...">
+            </div>
+            <div class="player2">
+                <label for="player2">O Player</label>
+                <input type="text" name="player2" placeholder="player 2 ...">
+            </div>
+            <button type="button" class="start-btn">Start Game</button>
+        </form>
         <button class="restart inactive">Restart ?</button>
     </div>
     <div class="game-board">
