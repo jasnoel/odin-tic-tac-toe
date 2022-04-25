@@ -31,16 +31,22 @@ const game = (() => {
     let player1 = Player('player1', 'X');
     let player2 = Player('player2', 'O');
     let currentPlayer = player1;
+    let mode = "vs";
 
     function switchSign() {
         currentPlayer = currentPlayer.getSign() == 'X' ? player2 : player1;
     }
 
-    function start() {
+    function start(newMode) {
+        mode = newMode;
         let playerName = document.querySelector('.player1').lastElementChild.value || 'Player 1';
         player1 = Player(playerName, 'X');
-        playerName = document.querySelector('.player2').lastElementChild.value || 'Player 2';
-        player2 = Player(playerName, 'O');
+        if (mode == 'solo') {
+            player2 = Player('AI', 'O');
+        } else {
+            playerName = document.querySelector('.player2').lastElementChild.value || 'Player 2';
+            player2 = Player(playerName, 'O');
+        }
         UI.showMessage(`${player1.getName().toUpperCase()} vs ${player2.getName().toUpperCase()}`)
     }
     
@@ -64,6 +70,30 @@ const game = (() => {
                 end();
             } else {
                 switchSign();
+            }
+        }
+        if (mode == 'solo') {
+            //just searching for a legal move
+            const grid = gameBoard.getBoard();
+            let x = null;
+            let y = null;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (grid[i][j] == '') {
+                        x = i;
+                        y = j;
+                    }
+                }
+            }
+            console.log(x, y)
+            if (gameBoard.placeTile(x, y, currentPlayer.getSign()) == true) {
+                UI.display();
+                if (checkWin() == true) {
+                    UI.displayRestart(true);
+                    end();
+                } else {
+                    switchSign();
+                }
             }
         }
     }
@@ -98,17 +128,21 @@ const UI = (() => {
     const cache = mainDiv.firstElementChild;
     const restart = document.querySelector('.restart');
     const startBtn = document.querySelector('.start-btn');
+    const AIStartBtn = document.querySelector('.ai-btn');
 
     //CONFIURE START // RESTART GAME BTN
-    startBtn.addEventListener('click', () => {
+    const startGame = (mode) => {
         UI.instanciateBoard();
-        startBtn.classList.add('inactive')
+        startBtn.classList.add('inactive');
+        AIStartBtn.classList.add('inactive');
         const playerForm1 = document.querySelector('.player1');
         playerForm1.classList.add('inactive');
         const playerForm2 = document.querySelector('.player2');
         playerForm2.classList.add('inactive');
-        game.start();
-    });
+        game.start(mode);
+    }
+    AIStartBtn.addEventListener('click', () => startGame('solo'));
+    startBtn.addEventListener('click', () => startGame('vs'));
     restart.addEventListener('click', () => {
         displayRestart(false);
         game.restart();

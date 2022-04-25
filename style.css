@@ -60,7 +60,7 @@ h1 {
     top: 200px;
 }
 
-button {
+.start-btn {
     padding: 5px 20px;
     background-color: #8e000044;
     border-radius: 10px;
@@ -68,6 +68,10 @@ button {
     margin: 35px;
 }
 
-button:hover {
+.start-btn:hover {
     background-color: #8e000084
+}
+
+.ai-btn {
+    color: #8e0000;
 }
