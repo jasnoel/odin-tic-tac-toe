@@ -56,10 +56,23 @@ const game = (() => {
         UI.switchAccess(true);
     }
 
-    function end() {
+    function end(winner) {
         UI.switchAccess(false)
         UI.displayRestart(true);
-        UI.showMessage(`${currentPlayer.getName()} won the game!`);
+        UI.showMessage(`${winner} won the game!`);
+    }
+
+    function checkNul() {
+        let output = true;
+        const board = gameBoard.getBoard();
+        board.forEach((lign) => {
+            lign.forEach((tile) => {
+                if (tile == '') {
+                    output = false;
+                }
+            })
+        })
+        return output;
     }
 
     function placeTile(x, y) {
@@ -67,8 +80,12 @@ const game = (() => {
             UI.display();
             if (checkWin() == true) {
                 UI.displayRestart(true);
-                end();
+                end(currentPlayer.getName());
+            } else if (checkNul()) {
+                UI.displayRestart(true);
+                end("Nobody ");
             } else {
+                console.log(checkNul());
                 switchSign();
             }
         }
@@ -90,7 +107,10 @@ const game = (() => {
                 UI.display();
                 if (checkWin() == true) {
                     UI.displayRestart(true);
-                    end();
+                    end(currentPlayer.getName());
+                } else if (checkNul()) {
+                    UI.displayRestart(true);
+                    end("Nobody ");
                 } else {
                     switchSign();
                 }
