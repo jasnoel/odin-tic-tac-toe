@@ -85,7 +85,6 @@ const game = (() => {
                 UI.displayRestart(true);
                 end("Nobody ");
             } else {
-                console.log(checkNul());
                 switchSign();
             }
         }
@@ -101,8 +100,7 @@ const game = (() => {
                         y = j;
                     }
                 }
-            }
-            console.log(x, y)
+            } 
             if (gameBoard.placeTile(x, y, currentPlayer.getSign()) == true) {
                 UI.display();
                 if (checkWin() == true) {
