@@ -60,7 +60,8 @@ h1 {
     top: 200px;
 }
 
-.start-btn {
+.start-btn,
+.restart {
     padding: 5px 20px;
     background-color: #8e000044;
     border-radius: 10px;
@@ -68,7 +69,8 @@ h1 {
     margin: 35px;
 }
 
-.start-btn:hover {
+.start-btn:hover,
+.restart:hover {
     background-color: #8e000084
 }
 
